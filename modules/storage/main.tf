@@ -10,3 +10,21 @@ resource "aws_s3_bucket_public_access_block" "resume_storage_security" {
   ignore_public_acls      = true
   restrict_public_buckets = true
 }
+
+resource "aws_s3_bucket_versioning" "resume_storage" {
+  bucket = aws_s3_bucket.resume_storage.id
+
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "resume_storage" {
+  bucket = aws_s3_bucket.resume_storage.id
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "AES256"
+    }
+  }
+}
