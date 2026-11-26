@@ -12,7 +12,7 @@ variable "bucket_name" {
 variable "ssh_allowed_cidr" {
   description = "Public IPv4 CIDR allowed to access SSH"
   type        = string
-  default     = "42.104.194.17/32"
+  default     = "42.104.210.136/32"
 }
 
 variable "public_key_path" {
