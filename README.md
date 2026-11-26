@@ -40,3 +40,31 @@ terraform apply
 
 ## Cleanup
 Review resources before running `terraform destroy`.
+
+## Additional Infrastructure Components
+
+The project also includes:
+
+- Reusable IAM module for the EC2 instance role and instance profile.
+- Read-only S3 access policy scoped to the application bucket.
+- CloudWatch EC2 CPU utilization alarm.
+- CloudWatch log group with seven-day retention.
+- GitHub Actions workflow for Terraform formatting and validation.
+- S3 remote Terraform state with encryption, versioning and native locking.
+
+### Security
+
+The EC2 instance receives AWS permissions through an IAM instance
+profile rather than storing long-lived AWS credentials on the server.
+The S3 policy is restricted to the application bucket.
+
+### Monitoring
+
+A CloudWatch alarm monitors average EC2 CPU utilization.
+The log group is provisioned for future log collection; a log
+forwarding agent must be configured separately to send instance logs.
+
+### CI
+
+GitHub Actions checks Terraform formatting and configuration validity.
+The workflow does not automatically apply infrastructure changes.

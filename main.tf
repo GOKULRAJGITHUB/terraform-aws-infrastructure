@@ -18,7 +18,14 @@ module "storage" {
 module "compute" {
   source = "./modules/compute"
 
-  public_subnet_id   = module.networking.public_subnet_id
-  web_security_group = module.security.web_security_group_id
-  key_pair_name      = module.security.key_pair_name
+  public_subnet_id          = module.networking.public_subnet_id
+  web_security_group        = module.security.web_security_group_id
+  key_pair_name             = module.security.key_pair_name
+  iam_instance_profile_name = module.iam.instance_profile_name
+}
+
+
+module "iam" {
+  source      = "./modules/iam"
+  bucket_name = var.bucket_name
 }
